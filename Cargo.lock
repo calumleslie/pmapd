@@ -1,0 +1,12 @@
+[root]
+name = "pmapd"
+version = "0.1.0"
+dependencies = [
+ "simd 0.1.0 (git+https://github.com/huonw/simd)",
+]
+
+[[package]]
+name = "simd"
+version = "0.1.0"
+source = "git+https://github.com/huonw/simd#be4242121e081206d8769cc60a7d2fa8e23cdc68"
+
