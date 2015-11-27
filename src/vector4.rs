@@ -36,19 +36,19 @@ impl Vector4 {
         self.value.extract(3)
     }
     fn min(self, other: Vector4) -> Vector4 {
-        Vector4 { value: self.value.min(other.value) }
+        Vector4::wrapping(self.value.min(other.value))
     }
     fn max(self, other: Vector4) -> Vector4 {
-        Vector4 { value: self.value.max(other.value) }
+        Vector4::wrapping(self.value.max(other.value))
     }
-    #[rustfmt_skip]
+    #[cfg_attr(rustfmt, rustfmt_skip)]
     fn dot(self, other: Vector4) -> f32 {
         // Paul's implementation uses an intrinsic for this but
         // the simd crate doesn't seem to support it.
         let multiplied = self.value * other.value;
 
-        multiplied.extract(0) + 
-            multiplied.extract(1) + 
+        multiplied.extract(0) +
+            multiplied.extract(1) +
             multiplied.extract(2) +
             multiplied.extract(3)
     }
@@ -59,8 +59,8 @@ impl Vector4 {
         (self - other).magnitude_squared()
     }
     fn distance_squared_to_bounding_box(self, mins: Vector4, maxs: Vector4) -> f32 {
-        assert!(Vector4::min(mins, maxs) == mins);
-        assert!(Vector4::max(mins, maxs) == maxs);
+        assert_eq!(Vector4::min(mins, maxs), mins);
+        assert_eq!(Vector4::max(mins, maxs), maxs);
 
         self.distance_squared(Vector4::min(maxs, Vector4::max(mins, self)))
     }
