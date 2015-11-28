@@ -17,6 +17,9 @@ impl PartialEq for Vector4 {
 impl Eq for Vector4 {}
 
 impl Vector4 {
+    pub fn zero() -> Vector4 {
+        Vector4::new(0.0, 0.0, 0.0, 0.0)
+    }
     pub fn new(x: f32, y: f32, z: f32, t: f32) -> Vector4 {
         Vector4::wrapping(f32x4::new(x, y, z, t))
     }
