@@ -23,9 +23,6 @@ impl Vector4 {
     pub fn new(x: f32, y: f32, z: f32, t: f32) -> Vector4 {
         Vector4::wrapping(f32x4::new(x, y, z, t))
     }
-    fn wrapping(value: f32x4) -> Vector4 {
-        Vector4 { value: value }
-    }
     pub fn x(self) -> f32 {
         self.value.extract(0)
     }
@@ -66,6 +63,9 @@ impl Vector4 {
         assert_eq!(Vector4::max(mins, maxs), maxs);
 
         self.distance_squared(Vector4::min(maxs, Vector4::max(mins, self)))
+    }
+    fn wrapping(value: f32x4) -> Vector4 {
+        Vector4 { value: value }
     }
 }
 
