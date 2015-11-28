@@ -3,7 +3,7 @@ use std::cmp::Eq;
 use std::ops::Sub;
 
 #[derive(Debug,Clone,Copy)]
-struct Vector4 {
+pub struct Vector4 {
     value: f32x4,
 }
 
@@ -17,32 +17,32 @@ impl PartialEq for Vector4 {
 impl Eq for Vector4 {}
 
 impl Vector4 {
-    fn new(x: f32, y: f32, z: f32, t: f32) -> Vector4 {
+    pub fn new(x: f32, y: f32, z: f32, t: f32) -> Vector4 {
         Vector4::wrapping(f32x4::new(x, y, z, t))
     }
     fn wrapping(value: f32x4) -> Vector4 {
         Vector4 { value: value }
     }
-    fn x(self) -> f32 {
+    pub fn x(self) -> f32 {
         self.value.extract(0)
     }
-    fn y(self) -> f32 {
+    pub fn y(self) -> f32 {
         self.value.extract(1)
     }
-    fn z(self) -> f32 {
+    pub fn z(self) -> f32 {
         self.value.extract(2)
     }
-    fn t(self) -> f32 {
+    pub fn t(self) -> f32 {
         self.value.extract(3)
     }
-    fn min(self, other: Vector4) -> Vector4 {
+    pub fn min(self, other: Vector4) -> Vector4 {
         Vector4::wrapping(self.value.min(other.value))
     }
-    fn max(self, other: Vector4) -> Vector4 {
+    pub fn max(self, other: Vector4) -> Vector4 {
         Vector4::wrapping(self.value.max(other.value))
     }
     #[cfg_attr(rustfmt, rustfmt_skip)]
-    fn dot(self, other: Vector4) -> f32 {
+    pub fn dot(self, other: Vector4) -> f32 {
         // Paul's implementation uses an intrinsic for this but
         // the simd crate doesn't seem to support it.
         let multiplied = self.value * other.value;
@@ -52,13 +52,13 @@ impl Vector4 {
             multiplied.extract(2) +
             multiplied.extract(3)
     }
-    fn magnitude_squared(self) -> f32 {
+    pub fn magnitude_squared(self) -> f32 {
         self.dot(self)
     }
-    fn distance_squared(self, other: Vector4) -> f32 {
+    pub fn distance_squared(self, other: Vector4) -> f32 {
         (self - other).magnitude_squared()
     }
-    fn distance_squared_to_bounding_box(self, mins: Vector4, maxs: Vector4) -> f32 {
+    pub fn distance_squared_to_bounding_box(self, mins: Vector4, maxs: Vector4) -> f32 {
         assert_eq!(Vector4::min(mins, maxs), mins);
         assert_eq!(Vector4::max(mins, maxs), maxs);
 

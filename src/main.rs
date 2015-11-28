@@ -1,6 +1,7 @@
 extern crate simd;
 
 mod vector4;
+mod photon_map;
 
 use simd::f32x4;
 
